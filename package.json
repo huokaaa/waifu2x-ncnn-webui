@@ -1,0 +1,41 @@
+{
+  "name": "waifu2x-material-upscaler",
+  "version": "3.0.0",
+  "description": "Waifu2x Web UI with Material Design 3, LAN support, and auto-cleanup",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "waifu2x",
+    "upscaler",
+    "material-design",
+    "image-processing",
+    "ai",
+    "ncnn",
+    "vulkan"
+  ],
+  "author": "Huoka",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "multer": "^1.4.5-lts.1",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/username/waifu2x-material-upscaler.git"
+  },
+  "bugs": {
+    "url": "https://github.com/username/waifu2x-material-upscaler/issues"
+  },
+  "homepage": "https://github.com/username/waifu2x-material-upscaler#readme"
+}
