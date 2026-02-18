@@ -6,7 +6,7 @@
 
 Aplikasi web modern untuk upscaling gambar menggunakan Waifu2x dengan antarmuka Material Design 3. Mendukung akses lokal dan LAN, auto-cleanup, serta berbagai parameter pengaturan.
 
-![Screenshot](screenshot.png)
+![Screenshot](https://github.com/huokaaa/waifu2x-ncnn-webui/blob/main/sceenshoot.png)
 
 ## ✨ Fitur Utama
 
