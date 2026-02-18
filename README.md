@@ -129,8 +129,8 @@ MIT License - lihat file [LICENSE](LICENSE) untuk detail
 
 ## 📧 Kontak
 
-- GitHub: [@username](https://github.com/username)
-- Email: email@example.com
+- GitHub: [@Huokaaa](https://github.com/huokaaa)
+- Email: huokaaa@example.com
 
 ---
 
