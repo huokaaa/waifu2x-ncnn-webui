@@ -130,7 +130,7 @@ MIT License - lihat file [LICENSE](LICENSE) untuk detail
 ## 📧 Kontak
 
 - GitHub: [@Huokaaa](https://github.com/huokaaa)
-- Email: huokaaa@example.com
+- Email: huokaaa@gmail.com
 
 ---
 
