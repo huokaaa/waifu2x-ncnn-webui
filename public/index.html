@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Waifu2x Upscaler - Material Design 3</title>
+  
+  <!-- Material Icons & Fonts -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Rounded" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+  
+  <style>
+    /* =============== MATERIAL DESIGN 3 VARIABLES =============== */
+    :root {
+      /* Primary Color Palette - Biru muda Material */
+      --md-sys-color-primary: #6750A4;
+      --md-sys-color-on-primary: #FFFFFF;
+      --md-sys-color-primary-container: #EADDFF;
+      --md-sys-color-on-primary-container: #21005D;
+      
+      --md-sys-color-secondary: #625B71;
+      --md-sys-color-on-secondary: #FFFFFF;
+      --md-sys-color-secondary-container: #E8DEF8;
+      --md-sys-color-on-secondary-container: #1D192B;
+      
+      --md-sys-color-tertiary: #7D5260;
+      --md-sys-color-on-tertiary: #FFFFFF;
+      --md-sys-color-tertiary-container: #FFD8E4;
+      --md-sys-color-on-tertiary-container: #31111D;
+      
+      /* Neutral Colors */
+      --md-sys-color-surface: #FEF7FF;
+      --md-sys-color-surface-dim: #DED8E1;
+      --md-sys-color-surface-bright: #FEF7FF;
+      --md-sys-color-surface-container-lowest: #FFFFFF;
+      --md-sys-color-surface-container-low: #F7F2FA;
+      --md-sys-color-surface-container: #F3EDF7;
+      --md-sys-color-surface-container-high: #ECE6F0;
+      --md-sys-color-surface-container-highest: #E6E0E9;
+      
+      --md-sys-color-on-surface: #1D1B20;
+      --md-sys-color-on-surface-variant: #49454F;
+      --md-sys-color-outline: #79747E;
+      --md-sys-color-outline-variant: #CAC4D0;
+      
+      /* Semantic Colors */
+      --md-sys-color-error: #BA1A1A;
+      --md-sys-color-on-error: #FFFFFF;
+      --md-sys-color-error-container: #FFDAD6;
+      --md-sys-color-on-error-container: #410002;
+      
+      --md-sys-color-success: #006D3D;
+      --md-sys-color-on-success: #FFFFFF;
+      --md-sys-color-success-container: #91F7B8;
+      --md-sys-color-on-success-container: #00210E;
+      
+      --md-sys-color-warning: #7C5800;
+      --md-sys-color-on-warning: #FFFFFF;
+      --md-sys-color-warning-container: #FFDEA8;
+      --md-sys-color-on-warning-container: #271900;
+      
+      /* Elevation */
+      --md-sys-elevation-1: 0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
+      --md-sys-elevation-2: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
+      --md-sys-elevation-3: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px 0px rgba(0, 0, 0, 0.30);
+      --md-sys-elevation-4: 0px 6px 10px 4px rgba(0, 0, 0, 0.15), 0px 2px 3px 0px rgba(0, 0, 0, 0.30);
+      --md-sys-elevation-5: 0px 8px 12px 6px rgba(0, 0, 0, 0.15), 0px 4px 4px 0px rgba(0, 0, 0, 0.30);
+      
+      /* Typography */
+      --md-sys-typescale-body-large-font-family: 'Roboto', sans-serif;
+      --md-sys-typescale-body-large-font-weight: 400;
+      --md-sys-typescale-body-large-font-size: 1rem;
+      --md-sys-typescale-body-large-line-height: 1.5;
+      --md-sys-typescale-body-large-letter-spacing: 0.03125rem;
+      
+      --md-ref-typeface-plain: 'Roboto', sans-serif;
+      
+      /* Shapes */
+      --md-sys-shape-corner-extra-small: 4px;
+      --md-sys-shape-corner-small: 8px;
+      --md-sys-shape-corner-medium: 12px;
+      --md-sys-shape-corner-large: 16px;
+      --md-sys-shape-corner-extra-large: 28px;
+      --md-sys-shape-corner-full: 9999px;
+      
+      /* Animation */
+      --md-sys-motion-duration-short4: 200ms;
+      --md-sys-motion-duration-medium4: 400ms;
+      --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+      --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+    }
+
+    /* =============== DARK MODE SUPPORT =============== */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --md-sys-color-primary: #D0BCFF;
+        --md-sys-color-on-primary: #371E73;
+        --md-sys-color-primary-container: #4F378B;
+        --md-sys-color-on-primary-container: #EADDFF;
+        
+        --md-sys-color-surface: #141218;
+        --md-sys-color-surface-dim: #0F0D13;
+        --md-sys-color-surface-bright: #3B383E;
+        --md-sys-color-surface-container-lowest: #0F0D13;
+        --md-sys-color-surface-container-low: #1D1B20;
+        --md-sys-color-surface-container: #211F26;
+        --md-sys-color-surface-container-high: #2B2930;
+        --md-sys-color-surface-container-highest: #36343B;
+        
+        --md-sys-color-on-surface: #E6E0E9;
+        --md-sys-color-on-surface-variant: #CAC4D0;
+      }
+    }
+
+    /* =============== BASE STYLES =============== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: var(--md-ref-typeface-plain);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: var(--md-sys-color-surface);
+      color: var(--md-sys-color-on-surface);
+      line-height: 1.5;
+      min-height: 100vh;
+      font-family: var(--md-sys-typescale-body-large-font-family);
+      font-weight: var(--md-sys-typescale-body-large-font-weight);
+      font-size: var(--md-sys-typescale-body-large-font-size);
+    }
+
+    /* =============== LAYOUT =============== */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    /* =============== HEADER =============== */
+    .app-bar {
+      background: var(--md-sys-color-surface-container);
+      border-radius: var(--md-sys-shape-corner-large);
+      padding: 1rem 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--md-sys-elevation-1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .app-bar-content {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .app-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: var(--md-sys-color-primary);
+      border-radius: var(--md-sys-shape-corner-medium);
+      color: var(--md-sys-color-on-primary);
+    }
+
+    .app-logo .material-symbols-rounded {
+      font-size: 24px;
+    }
+
+    .app-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--md-sys-color-primary), var(--md-sys-color-tertiary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .app-bar-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    /* =============== STATUS CHIPS =============== */
+    .status-chips {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .status-chip {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      background: var(--md-sys-color-surface-container-low);
+      border-radius: var(--md-sys-shape-corner-full);
+      font-size: 0.875rem;
+      color: var(--md-sys-color-on-surface-variant);
+      border: 1px solid var(--md-sys-color-outline-variant);
+    }
+
+    .status-chip .material-symbols-rounded {
+      font-size: 16px;
+    }
+
+    .status-chip.online {
+      background: var(--md-sys-color-success-container);
+      color: var(--md-sys-color-on-success-container);
+      border-color: transparent;
+    }
+
+    .status-chip.warning {
+      background: var(--md-sys-color-warning-container);
+      color: var(--md-sys-color-on-warning-container);
+      border-color: transparent;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: var(--md-sys-shape-corner-full);
+      background: var(--md-sys-color-success);
+    }
+
+    .status-chip.online .status-dot {
+      background: var(--md-sys-color-success);
+    }
+
+    /* =============== CARDS =============== */
+    .card {
+      background: var(--md-sys-color-surface-container-low);
+      border-radius: var(--md-sys-shape-corner-extra-large);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--md-sys-elevation-1);
+      transition: box-shadow var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+    }
+
+    .card:hover {
+      box-shadow: var(--md-sys-elevation-2);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--md-sys-color-on-surface);
+    }
+
+    .card-title .material-symbols-rounded {
+      font-size: 24px;
+      color: var(--md-sys-color-primary);
+    }
+
+    /* =============== UPLOAD AREA =============== */
+    .upload-area {
+      border: 2px dashed var(--md-sys-color-outline-variant);
+      border-radius: var(--md-sys-shape-corner-large);
+      padding: 2rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+      margin-bottom: 1.5rem;
+      background: var(--md-sys-color-surface-container);
+    }
+
+    .upload-area:hover {
+      border-color: var(--md-sys-color-primary);
+      background: var(--md-sys-color-primary-container);
+    }
+
+    .upload-area.drag-over {
+      border-color: var(--md-sys-color-primary);
+      background: var(--md-sys-color-primary-container);
+      transform: scale(1.01);
+      animation: pulse 1.5s infinite;
+    }
+
+    .upload-area .material-symbols-rounded {
+      font-size: 48px;
+      color: var(--md-sys-color-primary);
+      margin-bottom: 1rem;
+    }
+
+    .upload-area h3 {
+      font-size: 1.125rem;
+      margin-bottom: 0.5rem;
+      color: var(--md-sys-color-on-surface);
+    }
+
+    .upload-area p {
+      color: var(--md-sys-color-on-surface-variant);
+      font-size: 0.875rem;
+    }
+
+    #file-input {
+      display: none;
+    }
+
+    /* =============== SELECTED FILES =============== */
+    .selected-files {
+      margin-bottom: 1.5rem;
+    }
+
+    .selected-file {
+      padding: 1rem;
+      background: var(--md-sys-color-surface-container);
+      border-radius: var(--md-sys-shape-corner-medium);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid var(--md-sys-color-outline-variant);
+      animation: slideIn 0.3s var(--md-sys-motion-easing-emphasized);
+    }
+
+    .selected-file.removing {
+      animation: slideOut 0.2s var(--md-sys-motion-easing-emphasized);
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .selected-file-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      overflow: hidden;
+      flex: 1;
+    }
+
+    .selected-file-info .material-symbols-rounded {
+      color: var(--md-sys-color-primary);
+      font-size: 24px;
+    }
+
+    .file-details {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .file-details h4 {
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .file-details p {
+      color: var(--md-sys-color-on-surface-variant);
+      font-size: 0.875rem;
+    }
+
+    /* =============== CLEANUP INFO =============== */
+    .cleanup-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem;
+      background: var(--md-sys-color-surface-container);
+      border-radius: var(--md-sys-shape-corner-medium);
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--md-sys-color-outline-variant);
+      font-size: 0.875rem;
+    }
+
+    .cleanup-info .material-symbols-rounded {
+      color: var(--md-sys-color-success);
+      font-size: 20px;
+    }
+
+    /* =============== SETTINGS PANEL =============== */
+    .settings-panel {
+      background: var(--md-sys-color-surface-container);
+      border-radius: var(--md-sys-shape-corner-large);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--md-sys-color-outline-variant);
+    }
+
+    .settings-title {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    .settings-title .material-symbols-rounded {
+      color: var(--md-sys-color-primary);
+    }
+
+    .settings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .setting-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .setting-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 500;
+      color: var(--md-sys-color-on-surface);
+    }
+
+    .setting-label .material-symbols-rounded {
+      font-size: 20px;
+      color: var(--md-sys-color-primary);
+    }
+
+    .setting-description {
+      font-size: 0.75rem;
+      color: var(--md-sys-color-on-surface-variant);
+      margin-top: 0.25rem;
+    }
+
+    /* Radio Group */
+    .radio-group {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .radio-option {
+      flex: 1;
+      min-width: 60px;
+    }
+
+    .radio-option input[type="radio"] {
+      display: none;
+    }
+
+    .radio-option label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0.75rem;
+      background: var(--md-sys-color-surface-container-high);
+      border: 1px solid var(--md-sys-color-outline-variant);
+      border-radius: var(--md-sys-shape-corner-medium);
+      cursor: pointer;
+      transition: all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+      text-align: center;
+    }
+
+    .radio-option input[type="radio"]:checked + label {
+      background: var(--md-sys-color-primary-container);
+      border-color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-on-primary-container);
+    }
+
+    .radio-option label span:first-child {
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+
+    .radio-option label span:last-child {
+      font-size: 0.75rem;
+      opacity: 0.8;
+    }
+
+    /* Select */
+    .select-control {
+      padding: 0.75rem 1rem;
+      background: var(--md-sys-color-surface-container-high);
+      border: 1px solid var(--md-sys-color-outline-variant);
+      border-radius: var(--md-sys-shape-corner-medium);
+      color: var(--md-sys-color-on-surface);
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+    }
+
+    .select-control:hover {
+      border-color: var(--md-sys-color-primary);
+    }
+
+    .select-control:focus {
+      outline: none;
+      border-color: var(--md-sys-color-primary);
+      box-shadow: 0 0 0 2px var(--md-sys-color-primary-container);
+    }
+
+    /* Slider */
+    .slider-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .slider-value {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.875rem;
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    .slider-value span:last-child {
+      font-weight: 500;
+      color: var(--md-sys-color-primary);
+    }
+
+    .slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 4px;
+      background: var(--md-sys-color-surface-container-highest);
+      border-radius: var(--md-sys-shape-corner-full);
+      outline: none;
+    }
+
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      background: var(--md-sys-color-primary);
+      border-radius: var(--md-sys-shape-corner-full);
+      cursor: pointer;
+      box-shadow: var(--md-sys-elevation-2);
+      transition: all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+    }
+
+    .slider::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+      background: var(--md-sys-color-primary-container);
+    }
+
+    /* =============== BUTTONS =============== */
+    .button {
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--md-sys-shape-corner-full);
+      border: none;
+      font-weight: 500;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .button::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: currentColor;
+      opacity: 0;
+      border-radius: inherit;
+      transition: opacity var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+    }
+
+    .button:hover::after {
+      opacity: 0.08;
+    }
+
+    .button:active::after {
+      opacity: 0.12;
+    }
+
+    .button .material-symbols-rounded {
+      font-size: 20px;
+      z-index: 1;
+    }
+
+    .button-filled {
+      background: var(--md-sys-color-primary);
+      color: var(--md-sys-color-on-primary);
+    }
+
+    .button-filled:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: var(--md-sys-elevation-3);
+    }
+
+    .button-filled:disabled {
+      opacity: 0.38;
+      cursor: not-allowed;
+    }
+
+    .button-tonal {
+      background: var(--md-sys-color-secondary-container);
+      color: var(--md-sys-color-on-secondary-container);
+    }
+
+    .button-outlined {
+      background: transparent;
+      color: var(--md-sys-color-primary);
+      border: 1px solid var(--md-sys-color-outline);
+    }
+
+    .icon-button {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--md-sys-shape-corner-full);
+      border: none;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--md-sys-color-on-surface-variant);
+      transition: all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .icon-button::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: currentColor;
+      opacity: 0;
+      border-radius: inherit;
+      transition: opacity var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+    }
+
+    .icon-button:hover::after {
+      opacity: 0.08;
+    }
+
+    .icon-button:active::after {
+      opacity: 0.12;
+    }
+
+    .icon-button .material-symbols-rounded {
+      font-size: 24px;
+      z-index: 1;
+    }
+
+    .icon-button.tonal {
+      background: var(--md-sys-color-surface-container-highest);
+    }
+
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* =============== PROGRESS BAR =============== */
+    .progress-container {
+      margin: 1.5rem 0;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    .progress-track {
+      height: 4px;
+      background: var(--md-sys-color-surface-container-highest);
+      border-radius: var(--md-sys-shape-corner-full);
+      overflow: hidden;
+    }
+
+    .progress-indicator {
+      height: 100%;
+      background: linear-gradient(90deg, var(--md-sys-color-primary), var(--md-sys-color-secondary));
+      border-radius: var(--md-sys-shape-corner-full);
+      transition: width var(--md-sys-motion-duration-medium4) var(--md-sys-motion-easing-standard);
+    }
+
+    .progress-speed {
+      text-align: right;
+      font-size: 0.75rem;
+      color: var(--md-sys-color-on-surface-variant);
+      margin-top: 0.25rem;
+    }
+
+    /* =============== RESULT IMAGE =============== */
+    .result-container {
+      text-align: center;
+    }
+
+    .result-info {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .info-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--md-sys-color-surface-container);
+      border-radius: var(--md-sys-shape-corner-full);
+      font-size: 0.875rem;
+      border: 1px solid var(--md-sys-color-outline-variant);
+    }
+
+    .info-badge .material-symbols-rounded {
+      font-size: 18px;
+      color: var(--md-sys-color-primary);
+    }
+
+    .image-preview {
+      max-width: 100%;
+      max-height: 500px;
+      border-radius: var(--md-sys-shape-corner-large);
+      margin: 1.5rem 0;
+      box-shadow: var(--md-sys-elevation-2);
+      border: 1px solid var(--md-sys-color-outline-variant);
+    }
+
+    /* =============== NOTIFICATION =============== */
+    .notification {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      max-width: 400px;
+      background: var(--md-sys-color-surface-container-lowest);
+      border-radius: var(--md-sys-shape-corner-large);
+      padding: 1rem;
+      box-shadow: var(--md-sys-elevation-3);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transform: translateX(calc(100% + 1rem));
+      transition: transform var(--md-sys-motion-duration-medium4) var(--md-sys-motion-easing-emphasized);
+      z-index: 1001;
+    }
+
+    .notification.show {
+      transform: translateX(0);
+    }
+
+    .notification-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: var(--md-sys-shape-corner-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .notification.success .notification-icon {
+      background: var(--md-sys-color-success-container);
+      color: var(--md-sys-color-on-success-container);
+    }
+
+    .notification.error .notification-icon {
+      background: var(--md-sys-color-error-container);
+      color: var(--md-sys-color-on-error-container);
+    }
+
+    .notification.info .notification-icon {
+      background: var(--md-sys-color-primary-container);
+      color: var(--md-sys-color-on-primary-container);
+    }
+
+    .notification.cleanup .notification-icon {
+      background: var(--md-sys-color-warning-container);
+      color: var(--md-sys-color-on-warning-container);
+    }
+
+    .notification-message {
+      flex: 1;
+      font-weight: 500;
+      color: var(--md-sys-color-on-surface);
+    }
+
+    /* =============== ANIMATIONS =============== */
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideOut {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(103, 80, 164, 0.4);
+      }
+      70% {
+        box-shadow: 0 0 0 10px rgba(103, 80, 164, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(103, 80, 164, 0);
+      }
+    }
+
+    /* =============== UTILITY CLASSES =============== */
+    .hidden {
+      display: none !important;
+    }
+
+    .mt-4 {
+      margin-top: 1.5rem;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    /* =============== CUSTOM SCROLLBAR =============== */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--md-sys-color-surface-container);
+      border-radius: var(--md-sys-shape-corner-full);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--md-sys-color-outline-variant);
+      border-radius: var(--md-sys-shape-corner-full);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--md-sys-color-outline);
+    }
+
+    /* =============== RESPONSIVE DESIGN =============== */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0.75rem;
+      }
+
+      .card {
+        padding: 1.25rem;
+        border-radius: var(--md-sys-shape-corner-large);
+      }
+
+      .app-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+      }
+
+      .app-bar-actions {
+        justify-content: center;
+      }
+
+      .settings-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .button-group {
+        flex-direction: column;
+      }
+
+      .button-group .button {
+        width: 100%;
+      }
+
+      .result-info {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card-title {
+        font-size: 1.125rem;
+      }
+
+      .upload-area {
+        padding: 1.5rem 1rem;
+      }
+
+      .status-chips {
+        flex-direction: column;
+      }
+
+      .status-chip {
+        justify-content: center;
+      }
+
+      .radio-group {
+        flex-direction: column;
+      }
+
+      .radio-option label {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- App Bar -->
+    <div class="app-bar">
+      <div class="app-bar-content">
+        <div class="app-logo">
+          <span class="material-symbols-rounded">auto_awesome</span>
+        </div>
+        <div class="app-title">Waifu2x Upscaler</div>
+      </div>
+      <div class="app-bar-actions">
+        <button class="icon-button" id="infoBtn" title="Informasi">
+          <span class="material-symbols-rounded">info</span>
+        </button>
+        <button class="icon-button tonal" id="cleanupBtn" title="Bersihkan file">
+          <span class="material-symbols-rounded">delete_sweep</span>
+        </button>
+        <button class="icon-button tonal" id="themeToggle" title="Toggle tema">
+          <span class="material-symbols-rounded">dark_mode</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Status Chips -->
+    <div class="status-chips">
+      <div class="status-chip online" id="serverStatus">
+        <span class="status-dot"></span>
+        <span>Server Online</span>
+      </div>
+      <div class="status-chip" id="lanInfo">
+        <span class="material-symbols-rounded">wifi</span>
+        <span id="ipAddress">Loading IP...</span>
+      </div>
+      <div class="status-chip" id="cleanupStatus">
+        <span class="material-symbols-rounded">auto_delete</span>
+        <span>Auto-cleanup aktif</span>
+      </div>
+    </div>
+
+    <!-- Cleanup Info -->
+    <div class="cleanup-info">
+      <span class="material-symbols-rounded">info</span>
+      <span>File original akan dihapus otomatis setelah proses upscale selesai. File hasil tersimpan selama 1 jam.</span>
+    </div>
+
+    <!-- Main Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">
+          <span class="material-symbols-rounded">upload</span>
+          <span>Upload & Proses Gambar</span>
+        </div>
+      </div>
+
+      <!-- Upload Area -->
+      <div class="upload-area" id="uploadArea">
+        <span class="material-symbols-rounded">cloud_upload</span>
+        <h3>Pilih gambar atau tarik ke sini</h3>
+        <p>Support: JPG, PNG, WebP (Maks 10MB)</p>
+        <input type="file" id="file-input" accept="image/*">
+      </div>
+
+      <!-- Selected File -->
+      <div class="selected-files hidden" id="selectedFileContainer">
+        <div class="selected-file" id="selectedFile">
+          <div class="selected-file-info">
+            <span class="material-symbols-rounded">image</span>
+            <div class="file-details">
+              <h4 id="fileName">filename.jpg</h4>
+              <p id="fileSize">0 KB</p>
+            </div>
+          </div>
+          <button class="icon-button" id="removeFile">
+            <span class="material-symbols-rounded">close</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Settings Panel -->
+      <div class="settings-panel">
+        <div class="settings-title">
+          <span class="material-symbols-rounded">tune</span>
+          <span>Pengaturan Upscale</span>
+        </div>
+
+        <div class="settings-grid">
+          <!-- Scale Setting -->
+          <div class="setting-item">
+            <div class="setting-label">
+              <span class="material-symbols-rounded">straighten</span>
+              <span>Scale</span>
+            </div>
+            <div class="radio-group" id="scaleGroup">
+              <div class="radio-option">
+                <input type="radio" name="scale" id="scale1x" value="1">
+                <label for="scale1x">
+                  <span>1x</span>
+                  <span>Original</span>
+                </label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" name="scale" id="scale2x" value="2" checked>
+                <label for="scale2x">
+                  <span>2x</span>
+                  <span>Recommended</span>
+                </label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" name="scale" id="scale4x" value="4">
+                <label for="scale4x">
+                  <span>4x</span>
+                  <span>Large</span>
+                </label>
+              </div>
+            </div>
+            <div class="setting-description">
+              Perbesaran gambar (2x recommended)
+            </div>
+          </div>
+
+          <!-- Denoise Setting -->
+          <div class="setting-item">
+            <div class="setting-label">
+              <span class="material-symbols-rounded">grain</span>
+              <span>Denoise Level</span>
+            </div>
+            <div class="slider-container">
+              <div class="slider-value">
+                <span>Kekuatan denoise</span>
+                <span id="denoiseValue">1</span>
+              </div>
+              <input type="range" class="slider" id="denoiseSlider" min="0" max="3" value="1" step="1">
+            </div>
+            <div class="setting-description">
+              0 = tanpa denoise, 3 = maksimum
+            </div>
+          </div>
+
+          <!-- Format Setting -->
+          <div class="setting-item">
+            <div class="setting-label">
+              <span class="material-symbols-rounded">image</span>
+              <span>Output Format</span>
+            </div>
+            <select class="select-control" id="formatSelect">
+              <option value="png" selected>PNG (lossless)</option>
+              <option value="jpg">JPG (kompresi)</option>
+              <option value="webp">WebP (modern)</option>
+            </select>
+            <div class="setting-description">
+              Format file output
+            </div>
+          </div>
+
+          <!-- Model Setting -->
+          <div class="setting-item">
+            <div class="setting-label">
+              <span class="material-symbols-rounded">model_training</span>
+              <span>AI Model</span>
+            </div>
+            <select class="select-control" id="modelSelect">
+              <option value="models-cunet">CUNET (Anime)</option>
+              <option value="models-upconv_7_anime_style_art_rgb" selected>Upconv 7 Anime</option>
+              <option value="models-upconv_7_photo">Upconv 7 Photo</option>
+            </select>
+            <div class="setting-description">
+              Pilih model AI yang sesuai
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Button Group -->
+      <div class="button-group">
+        <button class="button button-outlined" id="selectFileBtn">
+          <span class="material-symbols-rounded">photo_library</span>
+          Pilih Gambar
+        </button>
+        <button class="button button-filled" id="upscaleBtn" disabled>
+          <span class="material-symbols-rounded">wand_shine</span>
+          Upscale Gambar
+        </button>
+      </div>
+
+      <!-- Progress -->
+      <div class="progress-container hidden" id="progressContainer">
+        <div class="progress-header">
+          <span id="progressStatus">Mengupload...</span>
+          <span id="progressPercentage">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-indicator" id="progressBar" style="width: 0%"></div>
+        </div>
+        <div class="progress-speed" id="progressDetail"></div>
+      </div>
+    </div>
+
+    <!-- Result Card -->
+    <div class="card hidden" id="resultCard">
+      <div class="card-header">
+        <div class="card-title">
+          <span class="material-symbols-rounded">check_circle</span>
+          <span>Hasil Upscale</span>
+        </div>
+        <button class="button button-filled" id="downloadBtn">
+          <span class="material-symbols-rounded">download</span>
+          Download
+        </button>
+      </div>
+      
+      <div class="result-container">
+        <!-- Info Badges -->
+        <div class="result-info" id="resultInfo">
+          <div class="info-badge">
+            <span class="material-symbols-rounded">straighten</span>
+            <span id="resultScale">2x</span>
+          </div>
+          <div class="info-badge">
+            <span class="material-symbols-rounded">grain</span>
+            <span id="resultDenoise">Denoise 1</span>
+          </div>
+          <div class="info-badge">
+            <span class="material-symbols-rounded">image</span>
+            <span id="resultFormat">PNG</span>
+          </div>
+          <div class="info-badge">
+            <span class="material-symbols-rounded">schedule</span>
+            <span id="resultTime">0.0s</span>
+          </div>
+          <div class="info-badge">
+            <span class="material-symbols-rounded">delete</span>
+            <span id="resultCleanup">File original dihapus</span>
+          </div>
+        </div>
+        
+        <img class="image-preview" id="resultImage" alt="Hasil Upscale">
+        
+        <div class="button-group">
+          <button class="button button-tonal" id="newUpscaleBtn">
+            <span class="material-symbols-rounded">refresh</span>
+            Upscale Lagi
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+      <div class="notification-icon">
+        <span class="material-symbols-rounded" id="notificationIcon">info</span>
+      </div>
+      <div class="notification-message" id="notificationMessage">Notifikasi</div>
+    </div>
+  </div>
+
+  <script>
+    // DOM Elements
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('file-input');
+    const selectedFileContainer = document.getElementById('selectedFileContainer');
+    const selectedFile = document.getElementById('selectedFile');
+    const fileName = document.getElementById('fileName');
+    const fileSize = document.getElementById('fileSize');
+    const removeFile = document.getElementById('removeFile');
+    const selectFileBtn = document.getElementById('selectFileBtn');
+    const upscaleBtn = document.getElementById('upscaleBtn');
+    const progressContainer = document.getElementById('progressContainer');
+    const progressBar = document.getElementById('progressBar');
+    const progressStatus = document.getElementById('progressStatus');
+    const progressPercentage = document.getElementById('progressPercentage');
+    const progressDetail = document.getElementById('progressDetail');
+    const resultCard = document.getElementById('resultCard');
+    const resultImage = document.getElementById('resultImage');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const newUpscaleBtn = document.getElementById('newUpscaleBtn');
+    const notification = document.getElementById('notification');
+    const notificationIcon = document.getElementById('notificationIcon');
+    const notificationMessage = document.getElementById('notificationMessage');
+    const ipAddress = document.getElementById('ipAddress');
+    const themeToggle = document.getElementById('themeToggle');
+    const infoBtn = document.getElementById('infoBtn');
+    const cleanupBtn = document.getElementById('cleanupBtn');
+
+    // Settings Elements
+    const denoiseSlider = document.getElementById('denoiseSlider');
+    const denoiseValue = document.getElementById('denoiseValue');
+    const formatSelect = document.getElementById('formatSelect');
+    const modelSelect = document.getElementById('modelSelect');
+    const scaleRadios = document.querySelectorAll('input[name="scale"]');
+
+    // Result Info Elements
+    const resultScale = document.getElementById('resultScale');
+    const resultDenoise = document.getElementById('resultDenoise');
+    const resultFormat = document.getElementById('resultFormat');
+    const resultTime = document.getElementById('resultTime');
+    const resultCleanup = document.getElementById('resultCleanup');
+
+    let selectedFileData = null;
+    let currentUpscaledUrl = null;
+
+    // Set IP Address
+    ipAddress.textContent = window.location.hostname + ':3000';
+
+    // Theme Toggle
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-theme');
+      const icon = themeToggle.querySelector('.material-symbols-rounded');
+      icon.textContent = document.body.classList.contains('dark-theme') ? 'light_mode' : 'dark_mode';
+    });
+
+    // Info Button
+    infoBtn.addEventListener('click', () => {
+      showNotification('Waifu2x Upscaler v3.0 - Dengan auto-cleanup', 'info');
+    });
+
+    // Cleanup Button
+    cleanupBtn.addEventListener('click', async () => {
+      try {
+        const response = await fetch('/api/cleanup', { method: 'POST' });
+        if (response.ok) {
+          showNotification('Pembersihan file dimulai', 'cleanup');
+        }
+      } catch (error) {
+        showNotification('Gagal membersihkan file', 'error');
+      }
+    });
+
+    // Denoise slider update
+    denoiseSlider.addEventListener('input', () => {
+      denoiseValue.textContent = denoiseSlider.value;
+    });
+
+    // Upload Area Events
+    uploadArea.addEventListener('click', () => fileInput.click());
+
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.classList.add('drag-over');
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.classList.remove('drag-over');
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove('drag-over');
+      const file = e.dataTransfer.files[0];
+      if (file && file.type.startsWith('image/')) {
+        handleFileSelect(file);
+      } else {
+        showNotification('File harus berupa gambar!', 'error');
+      }
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) handleFileSelect(file);
+    });
+
+    selectFileBtn.addEventListener('click', () => fileInput.click());
+
+    removeFile.addEventListener('click', () => {
+      resetUpload();
+    });
+
+    upscaleBtn.addEventListener('click', upscaleImage);
+
+    downloadBtn.addEventListener('click', () => {
+      if (currentUpscaledUrl) {
+        const link = document.createElement('a');
+        link.href = currentUpscaledUrl;
+        link.download = `upscaled_${selectedFileData?.name || 'image'}`;
+        link.click();
+        showNotification('Download dimulai!', 'success');
+      }
+    });
+
+    newUpscaleBtn.addEventListener('click', () => {
+      resetUpload();
+      resultCard.classList.add('hidden');
+    });
+
+    function handleFileSelect(file) {
+      // Check file size (10MB max)
+      if (file.size > 10 * 1024 * 1024) {
+        showNotification('Ukuran file maksimal 10MB!', 'error');
+        return;
+      }
+
+      // Check file type
+      if (!file.type.startsWith('image/')) {
+        showNotification('File harus berupa gambar!', 'error');
+        return;
+      }
+
+      selectedFileData = file;
+      fileName.textContent = file.name;
+      fileSize.textContent = formatFileSize(file.size);
+      selectedFileContainer.classList.remove('hidden');
+      upscaleBtn.disabled = false;
+      
+      showNotification('File berhasil dipilih', 'success');
+    }
+
+    function formatFileSize(bytes) {
+      if (bytes < 1024) return bytes + ' B';
+      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
+      return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+    }
+
+    function resetUpload() {
+      selectedFileData = null;
+      fileInput.value = '';
+      selectedFileContainer.classList.add('hidden');
+      upscaleBtn.disabled = true;
+      progressContainer.classList.add('hidden');
+      progressBar.style.width = '0%';
+    }
+
+    async function upscaleImage() {
+      if (!selectedFileData) return;
+
+      // Get settings
+      const scale = document.querySelector('input[name="scale"]:checked')?.value || '2';
+      const denoise = denoiseSlider.value;
+      const format = formatSelect.value;
+      const model = modelSelect.value;
+
+      const formData = new FormData();
+      formData.append('image', selectedFileData);
+      formData.append('scale', scale);
+      formData.append('denoise', denoise);
+      formData.append('format', format);
+      formData.append('model', model);
+
+      // Show progress
+      progressContainer.classList.remove('hidden');
+      upscaleBtn.disabled = true;
+
+      // Progress simulation
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += 2;
+        if (progress <= 95) {
+          progressBar.style.width = progress + '%';
+          progressPercentage.textContent = progress + '%';
+          
+          if (progress < 30) {
+            progressStatus.textContent = 'Mengupload...';
+            progressDetail.textContent = `File: ${selectedFileData.name}`;
+          } else if (progress < 60) {
+            progressStatus.textContent = 'Memproses dengan AI...';
+            progressDetail.textContent = `Scale: ${scale}x | Denoise: ${denoise}`;
+          } else if (progress < 80) {
+            progressStatus.textContent = 'Menerapkan filter...';
+            progressDetail.textContent = `Model: ${modelSelect.options[modelSelect.selectedIndex].text}`;
+          } else {
+            progressStatus.textContent = 'Menyelesaikan...';
+            progressDetail.textContent = 'Hampir selesai';
+          }
+        }
+      }, 200);
+
+      try {
+        const response = await fetch('/upscale', {
+          method: 'POST',
+          body: formData
+        });
+
+        clearInterval(interval);
+
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.error || 'Upscale gagal');
+        }
+
+        const data = await response.json();
+        
+        // Complete progress
+        progressBar.style.width = '100%';
+        progressPercentage.textContent = '100%';
+        progressStatus.textContent = 'Selesai!';
+        progressDetail.textContent = `Waktu proses: ${data.processingTime} detik`;
+        
+        // Show result
+        setTimeout(() => {
+          progressContainer.classList.add('hidden');
+          
+          // Set result image
+          resultImage.src = data.upscaledImage + '?t=' + Date.now();
+          currentUpscaledUrl = data.upscaledImage;
+          
+          // Update result info
+          resultScale.textContent = `${data.parameters.scale}x`;
+          resultDenoise.textContent = `Denoise ${data.parameters.denoise}`;
+          resultFormat.textContent = data.parameters.format.toUpperCase();
+          resultTime.textContent = `${data.processingTime}s`;
+          resultCleanup.textContent = 'File original dihapus';
+          
+          // Show result card
+          resultCard.classList.remove('hidden');
+          
+          // Reset upscale button
+          upscaleBtn.disabled = false;
+          
+          showNotification('Upscale berhasil! File original telah dihapus', 'success');
+          
+        }, 500);
+
+      } catch (error) {
+        clearInterval(interval);
+        console.error('Error:', error);
+        progressContainer.classList.add('hidden');
+        upscaleBtn.disabled = false;
+        showNotification('Error: ' + error.message, 'error');
+      }
+    }
+
+    function showNotification(message, type = 'info') {
+      notificationMessage.textContent = message;
+      notification.className = 'notification ' + type;
+      
+      let iconName = 'info';
+      if (type === 'success') iconName = 'check_circle';
+      if (type === 'error') iconName = 'error';
+      if (type === 'cleanup') iconName = 'delete_sweep';
+      notificationIcon.textContent = iconName;
+      
+      notification.classList.add('show');
+      
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 3000);
+    }
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      // Ctrl+O untuk memilih file
+      if (e.ctrlKey && e.key === 'o') {
+        e.preventDefault();
+        fileInput.click();
+      }
+      // Ctrl+Enter untuk upscale
+      if (e.ctrlKey && e.key === 'Enter' && !upscaleBtn.disabled) {
+        e.preventDefault();
+        upscaleImage();
+      }
+      // Ctrl+Shift+D untuk cleanup
+      if (e.ctrlKey && e.shiftKey && e.key === 'D') {
+        e.preventDefault();
+        cleanupBtn.click();
+      }
+    });
+  </script>
+</body>
+</html>
